@@ -105,6 +105,10 @@ def main():
     # CRIA O OBJETO DM
     try:
         dm = DeskManagerObject(chave_do_operador, chave_do_ambiente)
+        if dm.api_token == 'Prefixo Expirado ou não Existe':
+            dhprint("CHAVE DO AMBIENTE EXPIRADA OU INEXISTENTE. VERIFIQUE SE FOI DIGITADA CORRETAMENTE.")
+            system('pause')
+            return False
         dhprint("CONEXÃO COM A API DO DESK MANAGER ESTABELECIDA.")
     except:
         dhprint("HOUVE UM ERRO AO TENTAR CONECTAR COM A API DO DESK MANAGER")
@@ -116,6 +120,7 @@ def main():
     if exists(fpath):
         lpk = int(open(fpath).read())
         dhprint("ÚLTIMA CHAVE PRIMÁRIA DE CHAMADO REGISTRADA: " + str(lpk) + '.')
+        dhprint("MONITORANDO NOVOS CHAMADOS...")
     else:
         lpk = dm.pesquisa_chamados('')[0]['Chave']
         f = open(fpath, "a")
@@ -125,7 +130,6 @@ def main():
         dhprint("MONITORANDO NOVOS CHAMADOS...")
     while True:
         try:
-            dm = DeskManagerObject(chave_do_operador, chave_do_ambiente)
             novo_chamado = dm.dados_do_chamado(lpk+1)
             if novo_chamado != []:
 
@@ -137,9 +141,14 @@ def main():
 
                 # CASO SEJA IDENTIFICADA A CHAVE "ERRO", É EXIBIDA A MENSAGEM DE QUE A CHAVE DO OPERADOR É INEXISTENTE
                 if "erro" in novo_chamado:
-                    dhprint("ERRO: CHAVE DO OPERADOR INEXISTENTE")
-                    dhprint("ENCERRANDO PROGRAMA...")
-                    break
+                    if novo_chamado["erro"] == 'Token do operador não existe':
+                        dhprint("ERRO: CHAVE DO OPERADOR INEXISTENTE")
+                        dhprint("ENCERRANDO PROGRAMA...")
+                        break
+                    else:
+                        dhprint(novo_chamado["erro"])
+                        dhprint("ENCERRANDO PROGRAMA...")
+                        break
 
                 # ATRIBUI O STATUS DO NOVO CHAMADO À VARIÁVEL "STATUS_NOVO_CHAMADO"
                 status_novo_chamado = dm.pesquisa_chamados(f"{novo_chamado['TChamado']['CodChamado']}")[0]['NomeStatus']
@@ -158,30 +167,21 @@ def main():
                 cod_novo_chamado = novo_chamado['TChamado']['CodChamado']
 
                 # CRIA UM ARQUIVO COM A MENSAGEM CONTENDO OS DADOS DO NOVO CHAMADO
-                cf = open(cpath + '/' + cod_novo_chamado + '.txt', "a")
+                cf_name = cod_novo_chamado + '-' + distribuicao_novo_chamado.replace(' ', '_')
+                cf = open(cpath + '/' + cf_name + '.txt', "a")
                 cf.write(msg)
                 cf.close()
-                dhprint(f"NOVO CHAMADO REGISTRADO: {cod_novo_chamado}")
+                dhprint(f"NOVO CHAMADO REGISTRADO: {cod_novo_chamado}-{distribuicao_novo_chamado.replace(' ', '_')}")
 
             # PAUSA DE 10 SEGUNDOS PARA NÃO SOBRECARREGAR BANCO COM PESQUISAS
             sleep(10)
-
-        # QUALQUER OUTRA EXCEÇÃO É CLASSIFICADA COM CHAVE DO AMBIENTE INEXISTENTE.
         except:
-            dhprint("ERRO: CHAVE DO AMBIENTE INEXISTENTE")
-            dhprint("ENCERRANDO PROGRAMA...")
-            break
-
-    # PAUSA O PROGRAMA ANTES DELE SER FECHADO
-    system('pause')
-    remove("src/already.running")
+            dhprint("OCORREU UM ERRO AO TENTAR REALIZAR A BUSCA DE UM NOVO CHAMADO. TENTANDO NOVAMENTE EM 1 MINUTO...")
+            sleep(60)
+            dm = DeskManagerObject(chave_do_operador, chave_do_ambiente)
+            continue
 
 if __name__ == '__main__':
     main()
-
-
-# In[ ]:
-
-
-
+    system('pause')
 
