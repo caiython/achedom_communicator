@@ -171,7 +171,6 @@ def create_dm_object(chave_do_operador, chave_do_ambiente):
         dm = False
         
         dhprint("HOUVE UM ERRO AO TENTAR CRIAR O OBJETO DO DESK MANAGER. RELATE O PROBLEMA AO PROGRAMADOR.")
-        system('pause')
         
         return dm, had_error
     
