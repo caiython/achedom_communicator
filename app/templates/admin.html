@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Achedom - Admin{% endblock %}
+
+{% block content %}
+<main role="main" class="container-fluid">
+
+    <h1 class="h1">Admin</h1>
+
+    <div>
+        <div class="mb-2 mt-3 border-bottom border-dark">
+            <h2 class="h2">Usuário Logado Whatsapp</h2>
+        </div>
+        <div class="container-sm border-dark inner_div mt-2">
+            <p>Para configurar o usuário logado, envie a pasta "User Data" do seu Google Chrome zipada.</p>
+            <p>Instruções:</p>
+            <ol>
+                <li>Confirme se o seu usuário entra automaticamente ao acessar o <b><a href="https://web.whatsapp.com/"
+                            style="color: white;">Whatsapp Web</a></b>. Caso não,
+                    escaneie o QR code com o seu celular;</li>
+                <li>Pressione <b>Windows + R</b> no seu teclado para abrir o Executar;</li>
+                <li>No Executar, digite <b>%localappdata%</b> e pressione <b>Enter</b>;</li>
+                <li>Navegue até a pasta destino <b>Google/Chrome</b>;</li>
+                <li>Compacte a pasta <b>User Data</b> no formato <b>.zip</b>;</li>
+                <li>Faça <b>upload</b> do arquivo compactado <b>User Data.zip</b> no campo abaixo e pressione sobre
+                    o botão <b>Enviar Arquivo</b>.</li>
+            </ol>
+            <form style="justify-content: center;" action="/admin/whatsapp" method="post" enctype="multipart/form-data">
+                <div class="form-group"
+                    style="padding: 2%; background-color: rgb(23, 31, 43); width: 25%; display: flexbox; border-radius: 25px; text-align: center;">
+                    <label for="formFile" class="form-label mt-2">Upload <b>User Data.zip</b></label>
+                    <input class="form-control-file form-control-sm mb-2" id="formFile" name="file" type="file">
+                </div>
+                <button type="submit" class="btn btn-custom mb-2" name="botao" value="enviar_arquivo">Enviar
+                    Arquivo</button>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <div class="mb-2 mt-3 border-bottom border-dark">
+            <h2 class="h2">Instância Whatsapp</h2>
+        </div>
+        <div class="container-sm border-dark inner_div mt-2">
+            {% if whatsapp_running is false %}
+            <form action="/admin/whatsapp" method="post">
+                <div class="form-group">
+                    <label for="target_user">Nome do Contato/Grupo Alvo</label>
+                    <input type="target_user" class="form-control" name="target_user">
+                </div>
+                <div class="form-group">
+                    <p class="mb-1">Modo de Envio de Mensagens</p>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-custom active">
+                            <input type="radio" name="auto-or-manual" id="automatico" value="automatico"
+                                autocomplete="off" checked>
+                            Automático
+                        </label>
+                        <label class="btn btn-custom">
+                            <input type="radio" name="auto-or-manual" id="manual" value="manual" autocomplete="off">
+                            Manual
+                        </label>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <p class="mb-1">Status da Instância: <br> <b style="color: red;">Não Iniciada</b></p>
+                    <button type="submit" class="btn btn-custom" name="botao" value="iniciar">Iniciar</button>
+                    <button type="submit" class="btn btn-custom disabled" disabled>Parar</button>
+                </div>
+            </form>
+            {% else %}
+            <form action="/admin/whatsapp" method="post">
+                <div class="form-group">
+                    <label for="target_user">Nome do Contato/Grupo Alvo</label>
+                    <input type="target_user" class="form-control" placeholder="{{ target_user }}" disabled>
+                </div>
+                <div class="form-group">
+                    <p class="mb-1">Modo de Envio de Mensagens</p>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-custom active disabled" disabled>
+                            <input type="radio" name="auto-or-manual" id="automatico" value="automatico"
+                                autocomplete="off" checked>
+                            Automático
+                        </label>
+                        <label class="btn btn-custom disabled" disabled>
+                            <input type="radio" name="auto-or-manual" id="manual" value="manual" autocomplete="off">
+                            Manual
+                        </label>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <p>
+                        Status da Instância: <br>
+                        <b style="color: green;">Iniciada</b>
+                        ({{whatsapp_send_mode}})
+                    </p>
+                    <button class="btn btn-custom disabled" disabled>Iniciar</button>
+                    <button type="submit" class="btn btn-custom" name="botao" value="parar">Parar</button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="mb-2 mt-3 border-bottom border-dark">
+        <h2 class="h2">Instância Desk Manager</h2>
+    </div>
+    <div class="container-fluid border-dark inner_div mt-2">
+        <p>Insira a <b>chave do ambiente</b> e a <b>chave do operador</b> para que seja gerado um token da API do
+            deskmanager.</p>
+        {% if deskmanager_apitoken is false %}
+        <form action="/admin/deskmanager" method="post">
+            <div class="form-group">
+                <label for="operator_key">Chave do Operador</label>
+                <input type="operator_key" class="form-control" name="operator_key">
+            </div>
+            <div class="form-group">
+                <label for="ambient_key">Chave do ambiente</label>
+                <input type="ambient_key" class="form-control" name="ambient_key">
+            </div>
+            <div class="form-group">
+                <p class="mb-1">Modo de Atualização de Dados</p>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-custom active">
+                        <input type="radio" name="auto-or-manual" id="automatico" value="automatico"
+                            autocomplete="off" checked>
+                        Automático
+                    </label>
+                    <label class="btn btn-custom">
+                        <input type="radio" name="auto-or-manual" id="manual" value="manual" autocomplete="off">
+                        Manual
+                    </label>
+                </div>
+            </div>
+            <p>
+                Status da Instância: <br>
+                <b style="color: red;">Não Iniciada</b>
+            </p>
+            <button type="submit" class="btn btn-custom" name="botao" value="iniciar">Iniciar</button>
+            <button type="submit" class="btn btn-custom disabled" disabled>Parar</button>
+            
+        </form>
+        {% else %}
+        <form action="/admin/deskmanager" method="post">
+            <div class="form-group">
+                <label for="operator_key">Chave do Operador</label>
+                <input class="form-control" placeholder="Definida" disabled>
+            </div>
+            <div class="form-group">
+                <label for="ambient_key">Chave do ambiente</label>
+                <input class="form-control" placeholder="Definida" disabled>
+            </div>
+            <div class="form-group">
+                <p class="mb-1">Modo de Atualização de Dados</p>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-custom active disabled" disabled>
+                        <input type="radio" name="auto-or-manual" id="automatico" value="automatico"
+                            autocomplete="off" checked>
+                        Automático
+                    </label>
+                    <label class="btn btn-custom disabled" disabled>
+                        <input type="radio" name="auto-or-manual" id="manual" value="manual" autocomplete="off">
+                        Manual
+                    </label>
+                </div>
+            </div>
+            <p>
+                Status da Instância: <br>
+                <b style="color: green;">Iniciada</b>
+                ({{deskmanager_update_mode}})
+            </p>
+            <button type="submit" class="btn btn-custom disabled" disabled>Iniciar</button>
+            <button type="submit" class="btn btn-custom" name="botao" value="parar">Parar</button>
+        </form>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

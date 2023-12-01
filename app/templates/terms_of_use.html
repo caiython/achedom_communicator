@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Achedom - Terms of Use{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h1>Termos de Uso</h1>
+    <p>
+        Bem-vindo ao aplicativo web <b style="color: #df6c00;">Achedom</b>! Antes de utiliza-lo, leia atentamente e
+        concorde com as políticas de uso do app. Ao utilizar o aplicativo, você concorda em cumprir os seguintes termos:
+    </p>
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        Descrição do Serviço
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    O aplicativo web Achedom é uma ferramenta que comunica aos operadores os dados das ordens de serviço
+                    da plataforma DeskManager através do aplicativo de mensagens Whatsapp.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="false" aria-controls="collapseTwo">
+                        Direitos de Propriedade Intelectual
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    O aplicativo Achedom é uma aplicação open source sob a Licença Pública Geral GNU (GPL). Todo o
+                    código-fonte do aplicativo está disponível em seu repositório público do GitHub. Ao utilizar o
+                    aplicativo, você concorda em cumprir os termos da Licença Pública Geral GNU (GPL).
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseThree"
+                        aria-expanded="false" aria-controls="collapseThree">
+                        Restrições de Uso
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    Ao utilizar o aplicativo, você concorda em não:
+                    <ul>
+                        <li>
+                            Utilizar o aplicativo para fins ilegais, abusivos, ofensivos ou que violem os direitos de
+                            terceiros;
+                        </li>
+                        <li>
+                            Realizar qualquer ação que possa causar danos;
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFour">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseFour"
+                        aria-expanded="false" aria-controls="collapseFour">
+                        Conteúdo Gerado
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                <div class="card-body">
+                    Você é inteiramente responsável pelo conteúdo que envia através do aplicativo.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFive">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseFive"
+                        aria-expanded="false" aria-controls="collapseFive">
+                        Privacidade
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                <div class="card-body">
+                    Ao utilizar o aplicativo, você concorda com a Política de Privacidade do app, que descreve como o
+                    aplicativo coleta, armazena e utiliza os dados das ordens de serviço. Certifique-se de ler a
+                    Política de Privacidade do app para entender como as informações serão tratadas.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingSix">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseSix"
+                        aria-expanded="false" aria-controls="collapseSix">
+                        Alterações nos Termos
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                <div class="card-body">
+                    As políticas de uso estão sujeitas a atualizações. A utilização do aplicativo constitui sua
+                    concordância com os novos termos.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingSeven">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseSeven"
+                        aria-expanded="false" aria-controls="collapseSeven">
+                        Contato
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+                <div class="card-body">
+                    Se hovuer alguma dúvida ou preocupação sobre estas políticas de uso, entre em contato através do
+                    repositório público do GitHub.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

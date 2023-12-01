@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Achedom - Privacy Policy{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h1>Políticas de Privacidade</h1>
+
+    <p>
+        A Política de Privacidade do aplicativo <b style="color: #df6c00;">Achedom</b> descreve como o aplicativo
+        coleta, utiliza e protege os dados das ordens de serviço. Ao utilizar o aplicativo, você concorda com os termos
+        desta política.
+    </p>
+
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        Coleta de Informações
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    Para fornecer seus serviços, o aplicativo Achedom realiza uma solicitação na API da plataforma
+                    DeskManager para obter informações relevantes das ordens de serviço. Esses dados incluem, mas não se
+                    limitam a, códigos de chamados, datas, descrições e prioridades. Essas informações são armazenadas
+                    localmente em um banco de dados para possibilitar o uso do aplicativo.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="false" aria-controls="collapseTwo">
+                        Uso das Informações
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    As informações coletadas pelo aplicativo Achedom são utilizadas exclusivamente para o funcionamento
+                    adequado do aplicativo. As informações das ordens de serviço obtidas na API da plataforma de
+                    chamados são armazenadas localmente para permitir a automatização do processo de comunicação com os
+                    operadores por meio do WhatsApp.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseThree"
+                        aria-expanded="false" aria-controls="collapseThree">
+                        Compartilhamento de Informações
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    O aplicativo Achedom não compartilha informações coletadas dos usuários com terceiros.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFour">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseFour"
+                        aria-expanded="false" aria-controls="collapseFour">
+                        Segurança
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                <div class="card-body">
+                    Todas as informações coletadas e armazenadas pelo aplicativo Achedom são tratadas de forma segura e
+                    protegidas contra acesso não autorizado.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFive">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseFive"
+                        aria-expanded="false" aria-controls="collapseFive">
+                        Acesso às Informações
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                <div class="card-body">
+                    Toda a informação é acessada através do aplicativo web.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingSix">
+                <h5 class="mb-0">
+                    <button class="btn card-button collapsed" data-toggle="collapse" data-target="#collapseSix"
+                        aria-expanded="false" aria-controls="collapseSix">
+                        Atualização da Política de Privacidade
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                <div class="card-body">
+                    A Política de Privacidade do aplicativo Achedom pode ser atualizada ocasionalmente.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

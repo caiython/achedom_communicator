@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Achedom - Home{% endblock %}
+
+{% block content %}
+<main role="main">
+    <div class="container-fluid">
+        <h1 class="h1">Lista de Chamados</h1>
+    </div>
+
+    <div class="container-fluid table-bar">
+        <form action="/update_data" method="post">
+            {% if deskmanager_api_token is not none %}
+            <button type="submit" class="btn m-1 btn-custom" name="botao">
+                Atualizar Dados
+            </button>
+            {% else %}
+            <button type="submit" class="btn m-1 btn-outline-secondary" name="botao" disabled>
+                Atualizar Dados
+            </button>
+            {% endif %}
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-custom table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Cód</th>
+                    <th scope="col">Distribuiçao</th>
+                    <th scope="col">Assunto</th>
+                    <th scope="col">Data e Hora</th>
+                    <th scope="col">Solicitante</th>
+                    <th scope="col">Prioridade</th>
+                    <th scope="col">Whatsapp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for chamado in chamados %}
+                <tr>
+                    <th scope="row">{{chamado[0]}}</th>
+                    <td>
+                        {{chamado[1]}}
+                    </td>
+                    <td>
+                        {{chamado[2]}}
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="col-12">{{chamado[3]}}</div>
+                            <div class="col-12">{{chamado[4]}}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="col-12">{{chamado[5]}}</div>
+                            <div class="col-12">{{chamado[6]}}</div>
+                        </div>
+                    </td>
+                    <td>
+                        {{chamado[7]}}
+                    </td>
+                    <td>
+                        {% if whatsapp_running == True %}
+                        {% if chamado[8] == 0 %}
+                        <form action="/send_button" method="post">
+                            <button type="submit" class="btn m-1 btn-custom enviar_enviado" name="botao"
+                                value="{{chamado[0]}}">Enviar</button>
+                        </form>
+                        {% else %}
+                        <button type="button" class="btn m-1 btn-outline-secondary enviar_enviado" disabled>Enviado</button>
+                        {% endif %}
+                        {% else %}
+                        <button type="button" class="btn m-1 btn-outline-secondary enviar_enviado"
+                            disabled>Enviar</button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="page-navigation">
+        <ul class="pagination justify-content-center">
+            {% if page == 1 %}
+            <li class="page-item disabled"><a class="page-link">&laquo;&laquo;</a></li>
+            <li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+            <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }} <span
+                        class="sr-only">(current)</span></a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 1}}">{{ page + 1}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 2}}">{{ page + 2}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 3}}">{{ page + 3}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 4}}">{{ page + 4}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 1 }}">&raquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ total_pages }}">&raquo;&raquo;</a></li>
+            {% elif page == 2 %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo;&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 1}}">&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 1}}">{{ page - 1}}</a></li>
+            <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }} <span
+                        class="sr-only">(current)</span></a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 1}}">{{ page + 1}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 2}}">{{ page + 2}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 3}}">{{ page + 3}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 1 }}">&raquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ total_pages }}">&raquo;&raquo;</a></li>
+            {% elif page == total_pages - 1 %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo;&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 1}}">&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 3}}">{{ page - 3}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 2}}">{{ page - 2}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 1}}">{{ page - 1}}</a></li>
+            <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }} <span
+                        class="sr-only">(current)</span></a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 1}}">{{ page + 1}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 1 }}">&raquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ total_pages }}">&raquo;&raquo;</a></li>
+            {% elif page == total_pages %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo;&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 1}}">&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 4}}">{{ page - 4}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 3}}">{{ page - 3}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 2}}">{{ page - 2}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 1}}">{{ page - 1}}</a></li>
+            <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }} <span
+                        class="sr-only">(current)</span></a></li>
+            <li class="page-item disabled"><a class="page-link">&raquo;</a></li>
+            <li class="page-item disabled"><a class="page-link">&raquo;&raquo;</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo;&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 1}}">&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 2}}">{{ page - 2}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page - 1}}">{{ page - 1}}</a></li>
+            <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }} <span
+                        class="sr-only">(current)</span></a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 1}}">{{ page + 1}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 2}}">{{ page + 2}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ page + 1 }}">&raquo;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ total_pages }}">&raquo;&raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</main>
+{% endblock %}
